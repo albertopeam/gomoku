@@ -3,21 +3,31 @@ package com.github.albertopeam.gomoku.domain
 import java.lang.Exception
 
 class Board {
-    val size = 19
+    companion object {
+        const val size = 19
+    }
     private var board: MutableMap<Position, Player> = mutableMapOf()
 
     fun stones(): Int {
         return board.count()
     }
 
-    fun place(row: Int, column: Int, player: Player) {
+    fun place(position: Position, player: Player) {
+        place(position.row, position.column, player)
+    }
+
+    private fun place(row: Int, column: Int, player: Player) {
         val position = Position(row, column)
         checkBoard(position)
         checkFree(position)
         board[position] = player
     }
 
-    fun get(row: Int, column: Int): Player {
+    fun get(position: Position): Player {
+        return get(position.row, position.column)
+    }
+
+   private  fun get(row: Int, column: Int): Player {
         val position = Position(row, column)
         checkBoard(position)
         val player = board[position]
@@ -37,7 +47,7 @@ class Board {
     }
 }
 
-private data class Position(val row: Int, val column: Int)
+data class Position(val row: Int, val column: Int)
 
 enum class Player {
     WHITE, BLACK, EMPTY
