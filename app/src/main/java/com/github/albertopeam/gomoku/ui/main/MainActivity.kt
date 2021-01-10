@@ -1,8 +1,8 @@
-package com.github.albertopeam.gomoku
+package com.github.albertopeam.gomoku.ui.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.github.albertopeam.gomoku.ui.main.MainFragment
+import com.github.albertopeam.gomoku.R
 
 class MainActivity : AppCompatActivity() {
 
