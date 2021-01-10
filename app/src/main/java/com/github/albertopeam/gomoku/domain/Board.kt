@@ -3,9 +3,8 @@ package com.github.albertopeam.gomoku.domain
 import java.lang.Exception
 
 class Board {
-    companion object {
-        const val size = 19
-    }
+    val columns = 19
+    val rows = 19
     private var board: MutableMap<Position, Player> = mutableMapOf()
 
     fun stones(): Int {
@@ -35,7 +34,7 @@ class Board {
     }
 
     private fun checkBoard(position: Position) {
-        if (position.row < 0 || position.row >= size || position.column < 0 || position.column >= size) {
+        if (position.row < 0 || position.row >= rows || position.column < 0 || position.column >= columns) {
             throw OutOfBoardException()
         }
     }

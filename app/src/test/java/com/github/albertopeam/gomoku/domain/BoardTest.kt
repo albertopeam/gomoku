@@ -30,9 +30,9 @@ class BoardTest {
         assertEquals(1, sut.stones())
         assertEquals(Player.WHITE, sut.get(Position(0, 0)))
 
-        sut.place(Position(Board.size - 1, Board.size - 1), Player.BLACK)
+        sut.place(Position(sut.rows - 1, sut.columns - 1), Player.BLACK)
         assertEquals(2, sut.stones())
-        assertEquals(Player.BLACK, sut.get(Position(Board.size - 1, Board.size - 1)))
+        assertEquals(Player.BLACK, sut.get(Position(sut.rows - 1, sut.columns - 1)))
     }
 
     // place
@@ -78,12 +78,12 @@ class BoardTest {
 
     @Test(expected = OutOfBoardException::class)
     fun `when place a stone on the right of the board then throw`() {
-        sut.place(Position(Board.size, 0), Player.WHITE)
+        sut.place(Position(sut.rows, 0), Player.WHITE)
     }
 
     @Test(expected = OutOfBoardException::class)
     fun `when place a stone on the bottom of the board then throw`() {
-        sut.place(Position(0, Board.size), Player.WHITE)
+        sut.place(Position(0, sut.columns), Player.WHITE)
     }
 
     @Test
