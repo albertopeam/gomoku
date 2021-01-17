@@ -3,6 +3,5 @@
     <declare-styleable name="GridView">
         <attr name="line_color" format="reference" />
         <attr name="line_width" format="float" />
-        <attr name="divisions" format="integer" />
     </declare-styleable>
 </resources>

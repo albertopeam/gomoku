@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:line_color="@color/black"
-        app:line_width="2"
-        app:divisions="19"/>
+        app:line_width="2" />
 
 </FrameLayout>

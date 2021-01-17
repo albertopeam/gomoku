@@ -13,9 +13,9 @@ import kotlin.math.min
 class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private var lineColor: Int = Color.BLACK
-    private var divisions: Int = 2
     private var lineWidth: Float = 3f
     private var linePaint: Paint
+    var cells: Int = 19
 
     init {
         context?.theme?.obtainStyledAttributes(
@@ -25,7 +25,6 @@ class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         )?.apply {
             try {
                 lineColor = getInt(R.styleable.GridView_line_color, lineColor)
-                divisions = getInt(R.styleable.GridView_divisions, divisions)
                 lineWidth = getFloat(R.styleable.GridView_line_width, lineWidth)
             } finally {
                 recycle()
@@ -52,14 +51,13 @@ class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         canvas?.apply {
             val width = measuredWidth
             val height = measuredHeight
-            val totalLinesWidth = lineWidth * divisions
-            val distance = (height - totalLinesWidth) / divisions
-            (1 until divisions).forEach {
-                val position = it * distance + it * lineWidth
-                drawLine(0f, position, width.toFloat(), position, linePaint)
-                drawLine(position, 0f, position, height.toFloat(), linePaint)
+            val totalLinesWidth = lineWidth * cells
+            val distance = (height - totalLinesWidth) / (cells + 2)
+            (1..cells + 1).forEach {
+                val position = (it * distance) + (it * lineWidth)
+                drawLine(distance, position, width.toFloat() - distance, position, linePaint)
+                drawLine(position, distance, position, height.toFloat() - distance + lineWidth, linePaint)
             }
-
         }
     }
 }
