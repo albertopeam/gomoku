@@ -12,7 +12,7 @@
         android:background="@color/orange"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:line_color="@color/black"
+        app:line_color="@color/grid"
         app:line_width="2" />
 
 </FrameLayout>

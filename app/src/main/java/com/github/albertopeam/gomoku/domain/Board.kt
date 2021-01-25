@@ -26,7 +26,7 @@ class Board {
         return get(position.row, position.column)
     }
 
-   private  fun get(row: Int, column: Int): Player {
+   private fun get(row: Int, column: Int): Player {
         val position = Position(row, column)
         checkBoard(position)
         val player = board[position]
