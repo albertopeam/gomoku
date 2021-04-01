@@ -11,6 +11,11 @@ class Board {
         return board.count()
     }
 
+    /**
+     * place the player piece into the position
+     * @throws OutOfBoardException if the position is not inside the board
+     * @throws SpaceOccupiedException if the position is already taken by a player
+     */
     fun place(position: Position, player: Player) {
         place(position.row, position.column, player)
     }
@@ -22,6 +27,10 @@ class Board {
         board[position] = player
     }
 
+    /**
+     * gets the player for a position, if not occupied then it will return empty
+     * @throws OutOfBoardException if the position is not inside the board
+     */
     fun get(position: Position): Player {
         return get(position.row, position.column)
     }
