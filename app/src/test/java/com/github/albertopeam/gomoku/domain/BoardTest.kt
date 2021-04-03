@@ -4,7 +4,6 @@ import org.junit.Test
 
 import org.junit.Assert.*
 import org.junit.Before
-import java.lang.Exception
 
 class BoardTest {
 
