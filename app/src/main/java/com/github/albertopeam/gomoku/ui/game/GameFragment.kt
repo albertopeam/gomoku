@@ -1,4 +1,4 @@
-package com.github.albertopeam.gomoku.ui.main
+package com.github.albertopeam.gomoku.ui.game
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -6,31 +6,31 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.albertopeam.gomoku.databinding.MainFragmentBinding
+import com.github.albertopeam.gomoku.databinding.GameFragmentBinding
 import com.github.albertopeam.gomoku.domain.Board
 import com.github.albertopeam.gomoku.domain.Player
 import com.github.albertopeam.gomoku.domain.Position
 
-class MainFragment : Fragment() {
+class GameFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance() = GameFragment()
     }
 
-    private lateinit var binding: MainFragmentBinding
-    private lateinit var viewModel: MainViewModel
+    private lateinit var binding: GameFragmentBinding
+    private lateinit var viewModel: GameViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = MainFragmentBinding.inflate(inflater, container, false)
+        binding = GameFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
         // TODO: Use the ViewModel
         // TODO: Remove demo board
         val demoBoard = Board()

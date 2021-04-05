@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Gomoku">
-        <activity android:name=".ui.main.MainActivity"
+        <activity android:name=".ui.MainActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="fullSensor">
             <intent-filter>
