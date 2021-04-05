@@ -1,18 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.game.GameFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.github.albertopeam.gomoku.ui.view.GridView
-        android:id="@+id/gridView"
-        android:background="@color/orange"
+    <data>
+        <variable
+            name="viewModel"
+            type="com.github.albertopeam.gomoku.ui.game.GameViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:line_color="@color/grid"
-        app:line_width="2" />
+        android:layout_height="match_parent"
+        tools:context=".ui.game.GameFragment">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/gridView"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/black"
+            android:textAlignment="center"
+            android:text="@{viewModel.playerTurn}">
+        </TextView>
+
+        <com.github.albertopeam.gomoku.ui.view.GridView
+            android:id="@+id/gridView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/orange"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:line_color="@color/grid"
+            app:line_width="2" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
