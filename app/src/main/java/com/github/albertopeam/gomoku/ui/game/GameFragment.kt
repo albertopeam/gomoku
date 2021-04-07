@@ -44,5 +44,4 @@ class GameFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
     }
-
 }
