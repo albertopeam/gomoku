@@ -8,6 +8,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import androidx.databinding.BindingAdapter
 import com.github.albertopeam.gomoku.R
 import com.github.albertopeam.gomoku.domain.Board
 import com.github.albertopeam.gomoku.domain.Player
@@ -15,9 +16,10 @@ import com.github.albertopeam.gomoku.domain.Position
 import kotlin.math.min
 import kotlin.math.roundToInt
 
+//TODO: rotating breaks the layout
 //TODO: migrate to non squarish board
 //TODO: fix board lines start and end(small breaks)
-class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
+final class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private var lineColor: Int = Color.BLACK
     private var lineWidth: Float = 3f
@@ -61,20 +63,6 @@ class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
             style = Paint.Style.FILL
             color = Color.BLACK
         }
-        setOnTouchListener { view, motionEvent ->
-            board?.let { board ->
-                if (motionEvent.actionMasked == MotionEvent.ACTION_UP) {
-                    val posX = motionEvent.x
-                    val posY = motionEvent.y
-                    val column = (posX / cellSize()).roundToInt() - 1
-                    val row = (posY / cellSize()).roundToInt() - 1
-                    board.place(Position(row, column), Player.WHITE)
-                    invalidate()
-                }
-            }
-            view.performClick()
-            return@setOnTouchListener true
-        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -104,6 +92,14 @@ class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         }
     }
 
+    internal fun position(event: MotionEvent): Pair<Int, Int> {
+        val posX = event.x
+        val posY = event.y
+        val row = (posY / cellSize()).roundToInt() - 1
+        val column = (posX / cellSize()).roundToInt() - 1
+        return Pair(row, column)
+    }
+
     private fun drawGrid(canvas: Canvas?) {
         canvas?.apply {
             val width = measuredWidth
@@ -112,7 +108,13 @@ class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
             (1..cells + 1).forEach {
                 val position = (it * distance) + (it * lineWidth)
                 drawLine(distance, position, width.toFloat() - distance, position, linePaint)
-                drawLine(position, distance, position, height.toFloat() - distance + lineWidth, linePaint)
+                drawLine(
+                    position,
+                    distance,
+                    position,
+                    height.toFloat() - distance + lineWidth,
+                    linePaint
+                )
             }
         }
     }
@@ -126,7 +128,7 @@ class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
             val radius = (distance - (radiusPadding)) / 2.5f
             val xCenter = (distance * xPos) + (lineWidth * xPos)// + radius + radiusPadding
             val yCenter = (distance * yPos) + (lineWidth * yPos)// + radius + radiusPadding
-            drawCircle(xCenter, yCenter , radius, paint)
+            drawCircle(xCenter, yCenter, radius, paint)
         }
     }
 
