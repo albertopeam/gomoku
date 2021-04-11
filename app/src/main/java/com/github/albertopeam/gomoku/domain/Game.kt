@@ -1,6 +1,6 @@
 package com.github.albertopeam.gomoku.domain
 
-class Game(private val board: Board, private val rules: GomokuRules) {
+class Game(val board: Board, private val rules: GomokuRules) {
     var player: Player = Player.BLACK
 
     fun takeTurn(position: Position) {

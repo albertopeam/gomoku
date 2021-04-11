@@ -1,20 +1,18 @@
 package com.github.albertopeam.gomoku.ui.game
 
-import android.util.Log
-import android.view.MotionEvent
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.github.albertopeam.gomoku.domain.Game
+import com.github.albertopeam.gomoku.domain.Position
 
-class GameViewModel: ViewModel() {
-    //TODO: connect to be able to read player
+class GameViewModel(private val game: Game): ViewModel() {
     private val _playerTurn = MutableLiveData("Black's turn")
     val playerTurn: LiveData<String> = _playerTurn
 
     val tap: (Int, Int) -> Unit = { row, column ->
-        //TODO: have here the game or board...
-        //TODO: pending to read rows and columns from this viewModel
-        Log.d("lambda is called", "lambda is called")
+        game.takeTurn(Position(row, column))
+        val player = game.player
+        _playerTurn.postValue("Black's turn")
     }
 }

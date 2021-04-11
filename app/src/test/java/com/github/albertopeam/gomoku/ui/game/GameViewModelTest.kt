@@ -22,4 +22,9 @@ class GameViewModelTest {
     fun `when ask player turn then is correctly formatted`() {
         assertThat(sut.playerTurn.await(), equalTo("Black's turn"))
     }
+
+    //TODO: inject game
+    //TODO: turns test,
+
+    //TODO: min 10 video 6
 }
