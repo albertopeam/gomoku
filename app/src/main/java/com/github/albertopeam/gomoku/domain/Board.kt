@@ -1,10 +1,10 @@
 package com.github.albertopeam.gomoku.domain
 
-import java.lang.Exception
-
 class Board {
     val columns = 19
     val rows = 19
+    val lastColumn: Int = columns - 1
+    val lastRow: Int = rows - 1
     private var board: MutableMap<Position, Player> = mutableMapOf()
 
     fun stones(): Int {
@@ -54,12 +54,3 @@ class Board {
         }
     }
 }
-
-data class Position(val row: Int, val column: Int)
-
-enum class Player {
-    WHITE, BLACK, EMPTY
-}
-
-class SpaceOccupiedException: Exception()
-class OutOfBoardException: Exception()

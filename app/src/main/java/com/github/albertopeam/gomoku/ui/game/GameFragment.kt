@@ -37,7 +37,6 @@ class GameFragment : Fragment() {
         val rules = GomokuRules()
         val game = Game(board, rules)
         viewModel = ViewModelProvider(this, GameViewModelFactory(game)).get(GameViewModel::class.java)
-
         // TODO: remove game from gridView as much as possible
         binding.gridView.game = game
         binding.viewModel = viewModel

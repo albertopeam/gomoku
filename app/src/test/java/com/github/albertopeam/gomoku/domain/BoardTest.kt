@@ -1,5 +1,8 @@
 package com.github.albertopeam.gomoku.domain
 
+import org.hamcrest.CoreMatchers
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -12,6 +15,19 @@ class BoardTest {
     @Before
     fun setUp() {
         sut = Board()
+    }
+    // last row
+
+    @Test
+    fun `given board initialized then is last row matches rows minus one`() {
+        assertThat(sut.lastRow, equalTo(18))
+    }
+
+    // last column
+
+    @Test
+    fun `given board initialized then is last column matches columns minus one`() {
+        assertThat(sut.lastColumn, equalTo(18))
     }
 
     // stones

@@ -16,10 +16,14 @@ class GomokuRulesTest {
         sut = GomokuRules()
     }
 
+    // empty
+
     @Test
     fun `when board is empty then is not winner`() {
         assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
     }
+
+    // one piece
 
     @Test
     fun `when board is not empty but not win then is not winner`() {
@@ -179,4 +183,51 @@ class GomokuRulesTest {
 
         assertThat(sut.haveWinner(board), equalTo(Player.WHITE))
     }
+
+    // diagonal
+
+    @Test
+    fun `when five in diagonal beginning in first row and column for same player then is winner`() {
+        board.place(Position(0, 0), Player.WHITE)
+        board.place(Position(1, 1), Player.WHITE)
+        board.place(Position(2, 2), Player.WHITE)
+        board.place(Position(3, 3), Player.WHITE)
+        board.place(Position(4, 4 ), Player.WHITE)
+
+        assertThat(sut.haveWinner(board), equalTo(Player.WHITE))
+    }
+
+    @Test
+    fun `given a white piece in last position for first row then is no winner`() {
+        board.place(Position(0, board.lastColumn), Player.WHITE)
+
+        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+    }
+
+    @Test
+    fun `when five in diagonal beginning in first row and last column minus five for same player then is winner`() {
+        board.place(Position(0, board.lastColumn - 5), Player.BLACK)
+        board.place(Position(1, board.lastColumn - 4), Player.BLACK)
+        board.place(Position(2, board.lastColumn - 3), Player.BLACK)
+        board.place(Position(3, board.lastColumn - 2), Player.BLACK)
+        board.place(Position(4, board.lastColumn - 1 ), Player.BLACK)
+
+        assertThat(sut.haveWinner(board), equalTo(Player.BLACK))
+    }
+
+    @Test
+    fun `when five in diagonal beginning in last row minus five and first column for same player then is winner`() {
+        board.place(Position(board.rows - 5, 0), Player.WHITE)
+        board.place(Position(board.rows - 4, 1), Player.WHITE)
+        board.place(Position(board.rows - 3, 2), Player.WHITE)
+        board.place(Position(board.rows - 2, 3), Player.WHITE)
+        board.place(Position(board.rows - 1, 4 ), Player.WHITE)
+
+        assertThat(sut.haveWinner(board), equalTo(Player.WHITE))
+    }
+
+    // inverse diagonal
+
+    //TODO: min 32 vid6
+
 }

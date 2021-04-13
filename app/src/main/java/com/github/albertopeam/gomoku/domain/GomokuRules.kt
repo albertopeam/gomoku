@@ -16,6 +16,14 @@ class GomokuRules {
                 return winner
             }
         }
+        (0 until board.rows).forEach { row ->
+            (0 until board.columns).forEach { column ->
+                val winner = haveWinnerForDiagonal(Position(row, column), board)
+                if (winner != Player.EMPTY) {
+                    return winner
+                }
+            }
+        }
         return Player.EMPTY
     }
 
@@ -59,5 +67,22 @@ class GomokuRules {
             }
         }
         return Player.EMPTY
+    }
+
+    private fun haveWinnerForDiagonal(position: Position, board: Board): Player {
+        return try {
+            val player = board.get(position)
+            //TODO: empty player shortcut
+            val winner = (1 until 4)
+                .map { board.get(Position(position.row + it, position.column + it)) }
+                .all { it == player }
+            if (winner) {
+                player
+            } else {
+                Player.EMPTY
+            }
+        } catch (e: OutOfBoardException) {
+            Player.EMPTY
+        }
     }
 }
