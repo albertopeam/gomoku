@@ -18,9 +18,14 @@ class GomokuRules {
         }
         (0 until board.rows).forEach { row ->
             (0 until board.columns).forEach { column ->
-                val winner = haveWinnerForDiagonal(Position(row, column), board)
-                if (winner != Player.EMPTY) {
-                    return winner
+                val position = Position(row, column)
+                val topBottomWinner = haveWinnerForTopBottomDiagonal(position, board)
+                val bottomTopWinner = haveWinnerForBottomTopDiagonal(position, board)
+                if (topBottomWinner != Player.EMPTY) {
+                    return topBottomWinner
+                }
+                if (bottomTopWinner != Player.EMPTY) {
+                    return bottomTopWinner
                 }
             }
         }
@@ -69,14 +74,36 @@ class GomokuRules {
         return Player.EMPTY
     }
 
-    private fun haveWinnerForDiagonal(position: Position, board: Board): Player {
+    private fun haveWinnerForTopBottomDiagonal(position: Position, board: Board): Player {
         return try {
             val player = board.get(position)
-            //TODO: empty player shortcut
-            val winner = (1 until 4)
+            if (player == Player.EMPTY) {
+                return Player.EMPTY
+            }
+            val topToBottomWinner = (1 until 4)
                 .map { board.get(Position(position.row + it, position.column + it)) }
                 .all { it == player }
-            if (winner) {
+
+            if (topToBottomWinner) {
+                player
+            } else {
+                Player.EMPTY
+            }
+        } catch (e: OutOfBoardException) {
+            Player.EMPTY
+        }
+    }
+
+    private fun haveWinnerForBottomTopDiagonal(position: Position, board: Board): Player {
+        return try {
+            val player = board.get(position)
+            if (player == Player.EMPTY) {
+                return Player.EMPTY
+            }
+            val bottomToTopWinner = (1 until 4)
+                .map { board.get(Position(position.row - it, position.column + it)) }
+                .all { it == player }
+            if (bottomToTopWinner) {
                 player
             } else {
                 Player.EMPTY
