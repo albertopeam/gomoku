@@ -226,7 +226,16 @@ class GomokuRulesTest {
         assertThat(sut.haveWinner(board), equalTo(Player.WHITE))
     }
 
-    //TODO: five not consecutive in a row
+    @Test
+    fun `when five not consecutive in diagonal begining in first row for different players then is not winner`() {
+        board.place(Position(0, 0), Player.WHITE)
+        board.place(Position(1, 1), Player.WHITE)
+        board.place(Position(2, 2), Player.WHITE)
+        board.place(Position(3, 3), Player.WHITE)
+        board.place(Position(5, 5), Player.WHITE)
+
+        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+    }
 
     // inverse diagonal
 
@@ -263,8 +272,14 @@ class GomokuRulesTest {
         assertThat(sut.haveWinner(board), equalTo(Player.WHITE))
     }
 
-    //TODO: five not consecutive in a row
+    @Test
+    fun `when five not consecutive in diagonal begining in last row for different players then is not winner`() {
+        board.place(Position(board.lastRow, 0), Player.BLACK)
+        board.place(Position(board.lastRow - 1, 1), Player.BLACK)
+        board.place(Position(board.lastRow - 2, 2), Player.BLACK)
+        board.place(Position(board.lastRow - 3, 3), Player.BLACK)
+        board.place(Position(board.lastRow - 5, 5), Player.BLACK)
 
-    //TODO: min 32 vid6
-
+        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+    }
 }

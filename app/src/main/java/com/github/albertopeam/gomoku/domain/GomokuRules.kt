@@ -80,10 +80,9 @@ class GomokuRules {
             if (player == Player.EMPTY) {
                 return Player.EMPTY
             }
-            val topToBottomWinner = (1 until 4)
+            val topToBottomWinner = (1 until 5)
                 .map { board.get(Position(position.row + it, position.column + it)) }
                 .all { it == player }
-
             if (topToBottomWinner) {
                 player
             } else {
@@ -100,7 +99,7 @@ class GomokuRules {
             if (player == Player.EMPTY) {
                 return Player.EMPTY
             }
-            val bottomToTopWinner = (1 until 4)
+            val bottomToTopWinner = (1 until 5)
                 .map { board.get(Position(position.row - it, position.column + it)) }
                 .all { it == player }
             if (bottomToTopWinner) {
