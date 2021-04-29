@@ -20,7 +20,7 @@ class GomokuRulesTest {
 
     @Test
     fun `when board is empty then is not winner`() {
-        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+        assertNoWinner()
     }
 
     // one piece
@@ -28,7 +28,8 @@ class GomokuRulesTest {
     @Test
     fun `when board is not empty but not win then is not winner`() {
         board.place(Position(0, 0), Player.WHITE)
-        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+
+        assertNoWinner()
     }
 
     // horizontal
@@ -37,7 +38,7 @@ class GomokuRulesTest {
     fun `when five in row in the first row for same player then is winner`() {
         (0..4).forEach { board.place(Position(0, it), Player.WHITE) }
 
-        assertThat(sut.haveWinner(board), equalTo(Player.WHITE))
+        assertWinner(Player.WHITE)
     }
 
     @Test
@@ -45,7 +46,7 @@ class GomokuRulesTest {
         arrayOf(0,2,4,6,8).forEach { board.place(Position(0, it), Player.WHITE) }
         arrayOf(1,3,5,7,9).forEach { board.place(Position(0, it), Player.BLACK) }
 
-        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+        assertNoWinner()
     }
 
     @Test
@@ -53,14 +54,14 @@ class GomokuRulesTest {
         (0..1).forEach { board.place(Position(0, it), Player.BLACK) }
         (0..2).forEach { board.place(Position(1, it), Player.BLACK) }
 
-        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+        assertNoWinner()
     }
 
     @Test
     fun `when four in row in the first row for same player then is not winner`() {
         (4..7).forEach { board.place(Position(0, it), Player.WHITE) }
 
-        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+        assertNoWinner()
     }
 
     @Test
@@ -69,7 +70,7 @@ class GomokuRulesTest {
         board.place(Position(0, 4), Player.BLACK)
         board.place(Position(0, 5), Player.WHITE)
 
-        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+        assertNoWinner()
     }
 
     @Test
@@ -77,7 +78,7 @@ class GomokuRulesTest {
         (0..3).forEach { board.place(Position(0, it), Player.WHITE) }
         board.place(Position(0, 5), Player.WHITE)
 
-        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+        assertNoWinner()
     }
 
     @Test
@@ -86,7 +87,7 @@ class GomokuRulesTest {
             board = Board()
             (0..5).forEach { board.place(Position(0, it), Player.WHITE) }
 
-            assertThat(sut.haveWinner(board), equalTo(Player.WHITE))
+            assertWinner(Player.WHITE)
         }
     }
 
@@ -94,7 +95,7 @@ class GomokuRulesTest {
     fun `when six in row in any row for same player then is winner`() {
         (0..6).forEach { board.place(Position(0, it), Player.WHITE) }
 
-        assertThat(sut.haveWinner(board), equalTo(Player.WHITE))
+        assertWinner(Player.WHITE)
     }
 
     // vertical
@@ -103,21 +104,21 @@ class GomokuRulesTest {
     fun `when five in a col in the first column then is winner`() {
         (0..4).forEach { board.place(Position(it, 0), Player.BLACK) }
 
-        assertThat(sut.haveWinner(board), equalTo(Player.BLACK))
+        assertWinner(Player.BLACK)
     }
 
     @Test
     fun `when five in a col at the end of the first column then is winner`() {
         (board.rows-1 downTo board.rows-5).forEach { board.place(Position(it, board.columns-1), Player.BLACK) }
 
-        assertThat(sut.haveWinner(board), equalTo(Player.BLACK))
+        assertWinner(Player.BLACK)
     }
 
     @Test
     fun `when five in a col in the first column for white then is winner`() {
         (0..4).forEach { board.place(Position(it, 0), Player.WHITE) }
 
-        assertThat(sut.haveWinner(board), equalTo(Player.WHITE))
+        assertWinner(Player.WHITE)
     }
 
     @Test
@@ -125,7 +126,7 @@ class GomokuRulesTest {
         (0..1).forEach { board.place(Position(it, 0), Player.BLACK) }
         (0..2).forEach { board.place(Position(it, 1), Player.BLACK) }
 
-        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+        assertNoWinner()
     }
 
     @Test
@@ -133,21 +134,21 @@ class GomokuRulesTest {
         arrayOf(0,2,4,6,8).forEach { board.place(Position(it, 0), Player.WHITE) }
         arrayOf(1,3,5,7,9).forEach { board.place(Position(it, 0), Player.BLACK) }
 
-        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+        assertNoWinner()
     }
 
     @Test
     fun `when four in a column in the first column for same player then is not winner`() {
         (4..7).forEach { board.place(Position(it, 0), Player.WHITE) }
 
-        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+        assertNoWinner()
     }
 
     @Test
     fun `when four in a column in the last column for same player then is not winner`() {
         (board.rows-1 downTo board.rows-4).forEach { board.place(Position(it, board.columns-1), Player.BLACK) }
 
-        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+        assertNoWinner()
     }
 
     @Test
@@ -156,7 +157,7 @@ class GomokuRulesTest {
         board.place(Position(4, 0), Player.BLACK)
         board.place(Position(5, 0), Player.WHITE)
 
-        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+        assertNoWinner()
     }
 
     @Test
@@ -164,7 +165,7 @@ class GomokuRulesTest {
         (0..3).forEach { board.place(Position(it, 0), Player.WHITE) }
         board.place(Position(5, 0), Player.WHITE)
 
-        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+        assertNoWinner()
     }
 
     @Test
@@ -173,7 +174,7 @@ class GomokuRulesTest {
             board = Board()
             (0..5).forEach { board.place(Position(it, 0), Player.WHITE) }
 
-            assertThat(sut.haveWinner(board), equalTo(Player.WHITE))
+            assertWinner(Player.WHITE)
         }
     }
 
@@ -181,7 +182,7 @@ class GomokuRulesTest {
     fun `when six in column in any row for same player then is winner`() {
         (0..6).forEach { board.place(Position(it, 0), Player.WHITE) }
 
-        assertThat(sut.haveWinner(board), equalTo(Player.WHITE))
+        assertWinner(Player.WHITE)
     }
 
     // diagonal
@@ -194,14 +195,14 @@ class GomokuRulesTest {
         board.place(Position(3, 3), Player.WHITE)
         board.place(Position(4, 4 ), Player.WHITE)
 
-        assertThat(sut.haveWinner(board), equalTo(Player.WHITE))
+        assertWinner(Player.WHITE)
     }
 
     @Test
     fun `given a white piece in last position for first row then is no winner`() {
         board.place(Position(0, board.lastColumn), Player.WHITE)
 
-        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+        assertNoWinner()
     }
 
     @Test
@@ -212,7 +213,7 @@ class GomokuRulesTest {
         board.place(Position(3, board.lastColumn - 2), Player.BLACK)
         board.place(Position(4, board.lastColumn - 1 ), Player.BLACK)
 
-        assertThat(sut.haveWinner(board), equalTo(Player.BLACK))
+        assertWinner(Player.BLACK)
     }
 
     @Test
@@ -223,7 +224,7 @@ class GomokuRulesTest {
         board.place(Position(board.rows - 2, 3), Player.WHITE)
         board.place(Position(board.rows - 1, 4 ), Player.WHITE)
 
-        assertThat(sut.haveWinner(board), equalTo(Player.WHITE))
+        assertWinner(Player.WHITE)
     }
 
     @Test
@@ -234,7 +235,7 @@ class GomokuRulesTest {
         board.place(Position(3, 3), Player.WHITE)
         board.place(Position(5, 5), Player.WHITE)
 
-        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+        assertNoWinner()
     }
 
     // inverse diagonal
@@ -247,7 +248,7 @@ class GomokuRulesTest {
         board.place(Position(1, 3), Player.WHITE)
         board.place(Position(0, 4), Player.WHITE)
 
-        assertThat(sut.haveWinner(board), equalTo(Player.WHITE))
+        assertWinner(Player.WHITE)
     }
 
     @Test
@@ -258,7 +259,7 @@ class GomokuRulesTest {
         board.place(Position(1, board.lastColumn - 2), Player.BLACK)
         board.place(Position(0, board.lastColumn - 1), Player.BLACK)
 
-        assertThat(sut.haveWinner(board), equalTo(Player.BLACK))
+        assertWinner(Player.BLACK)
     }
 
     @Test
@@ -269,7 +270,7 @@ class GomokuRulesTest {
         board.place(Position(board.lastRow - 3, 3), Player.WHITE)
         board.place(Position(board.lastRow - 4, 4 ), Player.WHITE)
 
-        assertThat(sut.haveWinner(board), equalTo(Player.WHITE))
+        assertWinner(Player.WHITE)
     }
 
     @Test
@@ -280,6 +281,18 @@ class GomokuRulesTest {
         board.place(Position(board.lastRow - 3, 3), Player.BLACK)
         board.place(Position(board.lastRow - 5, 5), Player.BLACK)
 
-        assertThat(sut.haveWinner(board), equalTo(Player.EMPTY))
+        assertNoWinner()
     }
+
+    private fun assertNoWinner() {
+        assertThat(sut.haveWinner(board, Player.WHITE), equalTo(false))
+        assertThat(sut.haveWinner(board, Player.BLACK), equalTo(false))
+    }
+
+    private fun assertWinner(player: Player) {
+        assertThat(sut.haveWinner(board, player), equalTo(true))
+    }
+
+    //forward player to methods to avoid complexity, line 9, 15, 23 and 24
+    //1:14
 }

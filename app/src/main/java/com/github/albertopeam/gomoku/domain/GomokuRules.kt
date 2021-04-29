@@ -1,114 +1,87 @@
 package com.github.albertopeam.gomoku.domain
 
+//TODO: need algorithm improvements, three double for loops, first one can be introduced in third one first level.
 class GomokuRules {
     private val winTimes = 5
 
-    fun haveWinner(board: Board): Player {
+    fun haveWinner(board: Board, player: Player): Boolean {
         (0 until board.rows).forEach {
-            val winner = haveWinnerForRow(it, board)
-            if (winner != Player.EMPTY) {
-                return winner
+            val hasRowWinner = haveWinnerForRow(it, board, player)
+            if (hasRowWinner) {
+                return true
             }
         }
         (0 until board.columns).forEach {
-            val winner = haveWinnerForColumn(it, board)
-            if (winner != Player.EMPTY) {
-                return winner
+            val hasColumnWinner = haveWinnerForColumn(it, board, player)
+            if (hasColumnWinner) {
+                return true
             }
         }
         (0 until board.rows).forEach { row ->
             (0 until board.columns).forEach { column ->
                 val position = Position(row, column)
-                val topBottomWinner = haveWinnerForTopBottomDiagonal(position, board)
-                val bottomTopWinner = haveWinnerForBottomTopDiagonal(position, board)
-                if (topBottomWinner != Player.EMPTY) {
-                    return topBottomWinner
+                val hasTopBottomWinner = haveWinnerForTopBottomDiagonal(position, board, player)
+                val hasBottomTopWinner = haveWinnerForBottomTopDiagonal(position, board, player)
+                if (hasTopBottomWinner) {
+                    return true
                 }
-                if (bottomTopWinner != Player.EMPTY) {
-                    return bottomTopWinner
+                if (hasBottomTopWinner) {
+                    return true
                 }
             }
         }
-        return Player.EMPTY
+        return false
     }
 
-    private fun haveWinnerForRow(row: Int, board: Board): Player {
+    private fun haveWinnerForRow(row: Int, board: Board, player: Player): Boolean {
         var times = 0
-        var timesPlayer = Player.EMPTY
         for (i in 0 until board.columns) {
-            val player = board.get(Position(row, i))
-            if (player == Player.EMPTY) {
+            val playerForPosition = board.get(Position(row, i))
+            if (playerForPosition != player) {
                 times = 0
-                timesPlayer = Player.EMPTY
-            } else if (player == timesPlayer) {
+            } else if (playerForPosition == player) {
                 times++
-            } else {
-                times = 1
-                timesPlayer = player
             }
             if (times >= winTimes) {
-                return timesPlayer
+                return true
             }
         }
-        return Player.EMPTY
+        return false
     }
 
-    private fun haveWinnerForColumn(column: Int, board: Board): Player {
+    private fun haveWinnerForColumn(column: Int, board: Board, player: Player): Boolean {
         var times = 0
-        var timesPlayer = Player.EMPTY
         for (i in 0 until board.rows) {
-            val player = board.get(Position(i, column))
-            if (player == Player.EMPTY) {
+            val playerForPosition = board.get(Position(i, column))
+            if (playerForPosition != player) {
                 times = 0
-                timesPlayer = Player.EMPTY
-            } else if (player == timesPlayer) {
+            } else if (playerForPosition == player) {
                 times++
-            } else {
-                times = 1
-                timesPlayer = player
             }
             if (times >= winTimes) {
-                return timesPlayer
+                return true
             }
         }
-        return Player.EMPTY
+        return false
     }
 
-    private fun haveWinnerForTopBottomDiagonal(position: Position, board: Board): Player {
+    private fun haveWinnerForTopBottomDiagonal(position: Position, board: Board, player: Player): Boolean {
         return try {
-            val player = board.get(position)
-            if (player == Player.EMPTY) {
-                return Player.EMPTY
-            }
-            val topToBottomWinner = (1 until 5)
+            (0 until 5)
                 .map { board.get(Position(position.row + it, position.column + it)) }
                 .all { it == player }
-            if (topToBottomWinner) {
-                player
-            } else {
-                Player.EMPTY
-            }
         } catch (e: OutOfBoardException) {
-            Player.EMPTY
+            false
         }
     }
 
-    private fun haveWinnerForBottomTopDiagonal(position: Position, board: Board): Player {
+    private fun haveWinnerForBottomTopDiagonal(position: Position, board: Board, player: Player): Boolean {
         return try {
-            val player = board.get(position)
-            if (player == Player.EMPTY) {
-                return Player.EMPTY
-            }
-            val bottomToTopWinner = (1 until 5)
+            (0 until 5)
                 .map { board.get(Position(position.row - it, position.column + it)) }
                 .all { it == player }
-            if (bottomToTopWinner) {
-                player
-            } else {
-                Player.EMPTY
-            }
         } catch (e: OutOfBoardException) {
-            Player.EMPTY
+            false
         }
     }
 }

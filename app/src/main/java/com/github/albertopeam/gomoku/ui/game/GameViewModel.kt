@@ -8,21 +8,43 @@ import com.github.albertopeam.gomoku.domain.Player
 import com.github.albertopeam.gomoku.domain.Position
 
 class GameViewModel(private val game: Game): ViewModel() {
-    private val _playerTurn = MutableLiveData("Black's turn")
+    private val _playerTurn = MutableLiveData("")
     val playerTurn: LiveData<String> = _playerTurn
+    private val _winStatus = MutableLiveData<String?>(null)
+    val winStatus: LiveData<String?> = _winStatus
+
+    init {
+        haveWinnerOrWhoseTurn(game.whoseTurn())
+    }
 
     val tap: (Int, Int) -> Unit = { row, column ->
+        val player: Player = game.whoseTurn()
         game.takeTurn(Position(row, column))
+        haveWinnerOrWhoseTurn(player)
+    }
 
-        when (game.player) {
-            Player.BLACK -> {
-                _playerTurn.postValue("Black's turn")
+    private fun haveWinnerOrWhoseTurn(player: Player) {
+        if (game.haveWinner(player)) {
+            when (player) {
+                Player.BLACK -> {
+                    _winStatus.postValue("Black wins")
+                }
+                Player.WHITE -> {
+                    _winStatus.postValue("White wins")
+                }
+                else -> {}
             }
-            Player.WHITE -> {
-                _playerTurn.postValue("White's turn")
-            }
-            else -> {
-                _playerTurn.postValue("???")
+        } else {
+            when (game.whoseTurn()) {
+                Player.BLACK -> {
+                    _playerTurn.postValue("Black's turn")
+                }
+                Player.WHITE -> {
+                    _playerTurn.postValue("White's turn")
+                }
+                else -> {
+                    _playerTurn.postValue("-")
+                }
             }
         }
     }
