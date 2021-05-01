@@ -13,13 +13,13 @@ import org.junit.Test
 class GameViewModelTest {
     private lateinit var sut: GameViewModel
     private lateinit var game: Game
-    private lateinit var board: Board
+    private lateinit var board: BoardData
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
     @Before
     fun setUp() {
-        board = Board()
+        board = BoardData()
         game = Game(board, GomokuRules())
         sut = GameViewModel(game)
     }
@@ -60,6 +60,6 @@ class GameViewModelTest {
 
         sut.tap(0 ,5)
 
-        assertThat(sut.winStatus.await(), nullValue())
+        assertThat(sut.winStatus.await(), equalTo(""))
     }
 }

@@ -9,15 +9,13 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import com.github.albertopeam.gomoku.R
-import com.github.albertopeam.gomoku.domain.Board
-import com.github.albertopeam.gomoku.domain.Game
+import com.github.albertopeam.gomoku.domain.BoardState
 import com.github.albertopeam.gomoku.domain.Player
 import com.github.albertopeam.gomoku.domain.Position
 import kotlin.math.min
 import kotlin.math.roundToInt
 
 //TODO: rotating breaks the layout
-//TODO: migrate to non squarish board
 //TODO: fix board lines start and end(small breaks)
 class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
@@ -31,12 +29,7 @@ class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
             board?.let { return it.rows }
             return 0
         }
-    var game: Game? = null
-        set(value) {
-            field = value
-            board = field?.board
-        }
-    var board: Board? = null
+    var board: BoardState? = null
         set(value) {
             field = value
             invalidate()

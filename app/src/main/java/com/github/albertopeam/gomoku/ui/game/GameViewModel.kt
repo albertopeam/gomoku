@@ -3,15 +3,18 @@ package com.github.albertopeam.gomoku.ui.game
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.github.albertopeam.gomoku.domain.BoardState
 import com.github.albertopeam.gomoku.domain.Game
 import com.github.albertopeam.gomoku.domain.Player
 import com.github.albertopeam.gomoku.domain.Position
 
+//TODO: block game with empty player to avoid doing moves after winning?
 class GameViewModel(private val game: Game): ViewModel() {
     private val _playerTurn = MutableLiveData("")
     val playerTurn: LiveData<String> = _playerTurn
-    private val _winStatus = MutableLiveData<String?>(null)
-    val winStatus: LiveData<String?> = _winStatus
+    private val _winStatus = MutableLiveData("")
+    val winStatus: LiveData<String> = _winStatus
+    val board: BoardState = game.board()
 
     init {
         haveWinnerOrWhoseTurn(game.whoseTurn())
@@ -42,9 +45,7 @@ class GameViewModel(private val game: Game): ViewModel() {
                 Player.WHITE -> {
                     _playerTurn.postValue("White's turn")
                 }
-                else -> {
-                    _playerTurn.postValue("-")
-                }
+                else -> {}
             }
         }
     }

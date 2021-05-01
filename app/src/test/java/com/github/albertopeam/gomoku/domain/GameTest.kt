@@ -7,13 +7,13 @@ import org.junit.Test
 
 class GameTest {
 
-    private lateinit var board: Board
+    private lateinit var board: BoardData
     private lateinit var rules: GomokuRules
     private lateinit var sut: Game
 
     @Before
     fun setUp() {
-        board = Board()
+        board = BoardData()
         rules = GomokuRules()
         sut = Game(board, rules)
     }

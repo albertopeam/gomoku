@@ -1,20 +1,18 @@
 package com.github.albertopeam.gomoku.domain
 
-import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.equalTo
-import org.hamcrest.MatcherAssert
 import org.junit.Test
 
 import org.junit.Assert.*
 import org.junit.Before
 
-class BoardTest {
+class BoardDataTest {
 
-    private lateinit var sut: Board
+    private lateinit var sut: BoardData
 
     @Before
     fun setUp() {
-        sut = Board()
+        sut = BoardData()
     }
     // last row
 

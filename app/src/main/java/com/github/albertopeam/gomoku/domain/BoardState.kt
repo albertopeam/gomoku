@@ -1,6 +1,6 @@
 package com.github.albertopeam.gomoku.domain
 
-interface Board {
+interface BoardState {
     /**
      * Number of columns that the board has, from 0..<columns-1
      */
@@ -9,12 +9,6 @@ interface Board {
      * Number of rows that the board has, from 0..<rows-1
      */
     val rows: Int
-    /**
-     * place the player piece into the position
-     * @throws OutOfBoardException if the position is not inside the board
-     * @throws SpaceOccupiedException if the position is already taken by a player
-     */
-    fun place(position: Position, player: Player)
     /**
      * gets the player for a position, if not occupied then it will return empty
      * @throws OutOfBoardException if the position is not inside the board

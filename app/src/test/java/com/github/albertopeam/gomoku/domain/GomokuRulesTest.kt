@@ -7,12 +7,12 @@ import org.junit.Test
 
 class GomokuRulesTest {
 
-    private lateinit var board: Board
+    private lateinit var board: BoardData
     private lateinit var sut: GomokuRules
 
     @Before
     fun setUp() {
-        board = Board()
+        board = BoardData()
         sut = GomokuRules()
     }
 
@@ -84,7 +84,7 @@ class GomokuRulesTest {
     @Test
     fun `when five in row in any row for same player then is winner`() {
         (0..board.rows).forEach {
-            board = Board()
+            board = BoardData()
             (0..5).forEach { board.place(Position(0, it), Player.WHITE) }
 
             assertWinner(Player.WHITE)
@@ -171,7 +171,7 @@ class GomokuRulesTest {
     @Test
     fun `when five in column in any row for same player then is winner`() {
         (0..board.rows).forEach {
-            board = Board()
+            board = BoardData()
             (0..5).forEach { board.place(Position(it, 0), Player.WHITE) }
 
             assertWinner(Player.WHITE)

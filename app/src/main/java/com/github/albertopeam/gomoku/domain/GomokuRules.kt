@@ -4,7 +4,7 @@ package com.github.albertopeam.gomoku.domain
 class GomokuRules {
     private val winTimes = 5
 
-    fun haveWinner(board: Board, player: Player): Boolean {
+    fun haveWinner(board: BoardData, player: Player): Boolean {
         (0 until board.rows).forEach {
             val hasRowWinner = haveWinnerForRow(it, board, player)
             if (hasRowWinner) {
@@ -33,7 +33,7 @@ class GomokuRules {
         return false
     }
 
-    private fun haveWinnerForRow(row: Int, board: Board, player: Player): Boolean {
+    private fun haveWinnerForRow(row: Int, board: BoardData, player: Player): Boolean {
         var times = 0
         for (i in 0 until board.columns) {
             val playerForPosition = board.get(Position(row, i))
@@ -49,7 +49,7 @@ class GomokuRules {
         return false
     }
 
-    private fun haveWinnerForColumn(column: Int, board: Board, player: Player): Boolean {
+    private fun haveWinnerForColumn(column: Int, board: BoardData, player: Player): Boolean {
         var times = 0
         for (i in 0 until board.rows) {
             val playerForPosition = board.get(Position(i, column))
@@ -65,7 +65,7 @@ class GomokuRules {
         return false
     }
 
-    private fun haveWinnerForTopBottomDiagonal(position: Position, board: Board, player: Player): Boolean {
+    private fun haveWinnerForTopBottomDiagonal(position: Position, board: BoardData, player: Player): Boolean {
         return try {
             (0 until 5)
                 .map { board.get(Position(position.row + it, position.column + it)) }
@@ -75,7 +75,7 @@ class GomokuRules {
         }
     }
 
-    private fun haveWinnerForBottomTopDiagonal(position: Position, board: Board, player: Player): Boolean {
+    private fun haveWinnerForBottomTopDiagonal(position: Position, board: BoardData, player: Player): Boolean {
         return try {
             (0 until 5)
                 .map { board.get(Position(position.row - it, position.column + it)) }

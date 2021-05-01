@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.github.albertopeam.gomoku.ui.game.GameViewModel"/>
@@ -39,6 +40,22 @@
             app:layout_constraintTop_toTopOf="parent"
             app:line_color="@color/grid"
             app:line_width="2" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:textColor="@color/black"
+            android:textSize="36sp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="@{!viewModel.winStatus.isEmpty()}"
+            android:text="@{viewModel.winStatus}"
+            tools:text="Black wins"
+            tools:visibility="gone">
+        </TextView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
