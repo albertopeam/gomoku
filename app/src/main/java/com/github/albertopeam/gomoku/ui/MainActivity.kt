@@ -1,9 +1,12 @@
 package com.github.albertopeam.gomoku.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import com.github.albertopeam.gomoku.R
 import com.github.albertopeam.gomoku.ui.game.GameFragment
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -11,10 +14,28 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, GameFragment.newInstance())
-                .commitNow()
+            replaceGameFragment()
         }
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_activity_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.restart -> {
+                replaceGameFragment()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun replaceGameFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.container, GameFragment.newInstance())
+            .commitNow()
+    }
 }
-//TODO: toolBar reset game
