@@ -16,7 +16,10 @@ import kotlin.math.min
 import kotlin.math.roundToInt
 
 //TODO: rotating breaks the layout
+//TODO: taps on the middle of the layout are not precise enough
 //TODO: fix board lines start and end(small breaks)
+//TODO: GameImpl -> Gomoku rules? interface
+//TODO: GomokuRules. need algorithm improvements, three double for loops, first one can be introduced in third one first level.
 class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private var lineColor: Int = Color.BLACK

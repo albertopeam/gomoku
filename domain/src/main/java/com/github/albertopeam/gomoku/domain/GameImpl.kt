@@ -1,10 +1,12 @@
 package com.github.albertopeam.gomoku.domain
 
-//TODO: block game with empty player to avoid doing moves after winning?
 internal class GameImpl(private val board: BoardData, private val rules: GomokuRules): Game {
     private var player: Player = Player.BLACK
 
     override fun takeTurn(position: Position) {
+        if (player == Player.EMPTY) {
+            throw GameFinishedException()
+        }
         board.place(position, player)
         player = nextPlayer(player)
     }
@@ -14,7 +16,11 @@ internal class GameImpl(private val board: BoardData, private val rules: GomokuR
     }
 
     override fun haveWinner(player: Player): Boolean {
-        return rules.haveWinner(board, player)
+        val winner = rules.haveWinner(board, player)
+        if (winner) {
+            this.player = Player.EMPTY
+        }
+        return winner
     }
 
     override fun board(): BoardState {

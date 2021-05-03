@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.albertopeam.gomoku.domain.*
 
-//TODO: block game with empty player to avoid doing moves after winning?
 class GameViewModel(private val game: Game): ViewModel() {
     private val _playerTurn = MutableLiveData("")
     val playerTurn: LiveData<String> = _playerTurn
