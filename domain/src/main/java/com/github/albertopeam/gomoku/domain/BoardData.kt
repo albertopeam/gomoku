@@ -1,6 +1,6 @@
 package com.github.albertopeam.gomoku.domain
 
-class BoardData: Board, BoardState {
+internal class BoardData: Board, BoardState {
     override val columns = 19
     override val rows = 19
     val lastColumn: Int = columns - 1

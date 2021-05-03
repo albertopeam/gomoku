@@ -2,8 +2,6 @@ package com.github.albertopeam.gomoku.ui.view
 
 import android.view.MotionEvent
 import androidx.databinding.BindingAdapter
-import com.github.albertopeam.gomoku.domain.Player
-import com.github.albertopeam.gomoku.domain.Position
 
 @BindingAdapter("onTapListener")
 fun GridView.onTapListener(lambda: ((row: Int, column: Int) -> Unit)?) {

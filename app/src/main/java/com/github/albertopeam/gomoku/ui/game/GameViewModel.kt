@@ -9,6 +9,7 @@ import com.github.albertopeam.gomoku.domain.Player
 import com.github.albertopeam.gomoku.domain.Position
 
 //TODO: block game with empty player to avoid doing moves after winning?
+//TODO: handle spaceocuppied exception
 class GameViewModel(private val game: Game): ViewModel() {
     private val _playerTurn = MutableLiveData("")
     val playerTurn: LiveData<String> = _playerTurn

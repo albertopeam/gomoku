@@ -1,7 +1,7 @@
 package com.github.albertopeam.gomoku.domain
 
 //TODO: need algorithm improvements, three double for loops, first one can be introduced in third one first level.
-class GomokuRules {
+internal class GomokuRules {
     private val winTimes = 5
 
     fun haveWinner(board: BoardData, player: Player): Boolean {

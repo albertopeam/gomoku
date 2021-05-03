@@ -4,7 +4,6 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.github.albertopeam.gomoku.await
 import com.github.albertopeam.gomoku.domain.*
 import org.hamcrest.CoreMatchers.equalTo
-import org.hamcrest.CoreMatchers.nullValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Before
 import org.junit.Rule
@@ -13,14 +12,13 @@ import org.junit.Test
 class GameViewModelTest {
     private lateinit var sut: GameViewModel
     private lateinit var game: Game
-    private lateinit var board: BoardData
+
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
     @Before
     fun setUp() {
-        board = BoardData()
-        game = Game(board, GomokuRules())
+        game = GomokuGameFactory.make()
         sut = GameViewModel(game)
     }
 
@@ -46,19 +44,30 @@ class GameViewModelTest {
 
     @Test
     fun `when tap position for winning game then is winner for current player`() {
-        (0..3).forEach { board.place(Position(0, it), Player.WHITE) }
-
+        sut.tap(0 ,0)
+        sut.tap(1 ,0)
+        sut.tap(0 ,1)
+        sut.tap(1 ,1)
+        sut.tap(0 ,2)
+        sut.tap(1 ,2)
+        sut.tap(0 ,3)
+        sut.tap(1 ,3)
         sut.tap(0 ,5)
-        sut.tap(0 ,4)
+        sut.tap(1 ,4)
 
         assertThat(sut.winStatus.await(), equalTo("White wins"))
     }
 
     @Test
     fun `when tap position for not winning game then is no winner for current player`() {
-        (0..3).forEach { board.place(Position(0, it), Player.WHITE) }
-
-        sut.tap(0 ,5)
+        sut.tap(0 ,0)
+        sut.tap(1 ,0)
+        sut.tap(0 ,1)
+        sut.tap(1 ,1)
+        sut.tap(0 ,2)
+        sut.tap(1 ,2)
+        sut.tap(0 ,3)
+        sut.tap(1 ,3)
 
         assertThat(sut.winStatus.await(), equalTo(""))
     }

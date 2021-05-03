@@ -1,7 +1,7 @@
 package com.github.albertopeam.gomoku.domain
 
+import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.core.IsEqual.equalTo
-import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
 
@@ -9,13 +9,13 @@ class GameTest {
 
     private lateinit var board: BoardData
     private lateinit var rules: GomokuRules
-    private lateinit var sut: Game
+    private lateinit var sut: GameImpl
 
     @Before
     fun setUp() {
         board = BoardData()
         rules = GomokuRules()
-        sut = Game(board, rules)
+        sut = GameImpl(board, rules)
     }
 
     @Test

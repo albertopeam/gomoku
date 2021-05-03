@@ -109,7 +109,10 @@ class GomokuRulesTest {
 
     @Test
     fun `when five in a col at the end of the first column then is winner`() {
-        (board.rows-1 downTo board.rows-5).forEach { board.place(Position(it, board.columns-1), Player.BLACK) }
+        (board.rows-1 downTo board.rows-5).forEach { board.place(
+            Position(it, board.columns-1),
+            Player.BLACK
+        ) }
 
         assertWinner(Player.BLACK)
     }
@@ -146,7 +149,10 @@ class GomokuRulesTest {
 
     @Test
     fun `when four in a column in the last column for same player then is not winner`() {
-        (board.rows-1 downTo board.rows-4).forEach { board.place(Position(it, board.columns-1), Player.BLACK) }
+        (board.rows-1 downTo board.rows-4).forEach { board.place(
+            Position(it, board.columns-1),
+            Player.BLACK
+        ) }
 
         assertNoWinner()
     }
@@ -292,7 +298,4 @@ class GomokuRulesTest {
     private fun assertWinner(player: Player) {
         assertThat(sut.haveWinner(board, player), equalTo(true))
     }
-
-    //forward player to methods to avoid complexity, line 9, 15, 23 and 24
-    //1:14
 }

@@ -1,9 +1,8 @@
 package com.github.albertopeam.gomoku.domain
 
 import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Test
-
-import org.junit.Assert.*
 import org.junit.Before
 
 class BoardDataTest {
@@ -32,7 +31,7 @@ class BoardDataTest {
 
     @Test
     fun `when create board then number of stones is zero`() {
-        assertEquals(0, sut.stones())
+        assertThat(sut.stones(), equalTo(0))
     }
 
     // get
@@ -40,30 +39,30 @@ class BoardDataTest {
     @Test
     fun `when place stones in a position then gets added`() {
         sut.place(Position(0, 0), Player.WHITE)
-        assertEquals(1, sut.stones())
-        assertEquals(Player.WHITE, sut.get(Position(0, 0)))
+        assertThat(sut.stones(), equalTo(1))
+        assertThat(sut.get(Position(0, 0)), equalTo(Player.WHITE))
 
         sut.place(Position(sut.rows - 1, sut.columns - 1), Player.BLACK)
-        assertEquals(2, sut.stones())
-        assertEquals(Player.BLACK, sut.get(Position(sut.rows - 1, sut.columns - 1)))
+        assertThat(sut.stones(), equalTo(2))
+        assertThat(sut.get(Position(sut.rows - 1, sut.columns - 1)), equalTo(Player.BLACK))
     }
 
     // place
 
     @Test
     fun `when place white stone in a position then player in this position is white`() {
-        assertEquals(Player.EMPTY, sut.get(Position(1, 1)))
+        assertThat(sut.get(Position(1, 1)), equalTo(Player.EMPTY))
 
         sut.place(Position(1, 1), Player.WHITE)
 
-        assertEquals(Player.WHITE, sut.get(Position(1, 1)))
+        assertThat(sut.get(Position(1, 1)), equalTo(Player.WHITE))
     }
 
     @Test
     fun `when place a stone in a occuppied intersection position then throw`() {
         sut.place(Position(1, 1), Player.WHITE)
 
-        assertEquals(Player.WHITE, sut.get(Position(1, 1)))
+        assertThat(sut.get(Position(1, 1)), equalTo(Player.WHITE))
 
         var numOfExceptions = 0
         try {
@@ -76,7 +75,7 @@ class BoardDataTest {
         } catch (e: SpaceOccupiedException) {
             numOfExceptions++
         }
-        assertEquals(2, numOfExceptions)
+        assertThat(numOfExceptions, equalTo(2))
     }
 
     @Test(expected = OutOfBoardException::class)
@@ -107,7 +106,7 @@ class BoardDataTest {
         } catch (e: OutOfBoardException){
             stones = sut.stones()
         } finally {
-            assertEquals(0, stones)
+            assertThat(stones, equalTo(0))
         }
     }
 }
