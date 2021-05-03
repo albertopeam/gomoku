@@ -71,4 +71,14 @@ class GameViewModelTest {
 
         assertThat(sut.winStatus.await(), equalTo(""))
     }
+
+    // tapping twice
+
+    @Test
+    fun `when tap position twice then second movement was not valid`() {
+        sut.tap(0 ,0)
+        sut.tap(0 ,0)
+
+        assertThat(sut.playerTurn.await(), equalTo("White's turn"))
+    }
 }

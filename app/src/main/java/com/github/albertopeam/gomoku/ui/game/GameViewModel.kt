@@ -3,13 +3,9 @@ package com.github.albertopeam.gomoku.ui.game
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.github.albertopeam.gomoku.domain.BoardState
-import com.github.albertopeam.gomoku.domain.Game
-import com.github.albertopeam.gomoku.domain.Player
-import com.github.albertopeam.gomoku.domain.Position
+import com.github.albertopeam.gomoku.domain.*
 
 //TODO: block game with empty player to avoid doing moves after winning?
-//TODO: handle spaceocuppied exception
 class GameViewModel(private val game: Game): ViewModel() {
     private val _playerTurn = MutableLiveData("")
     val playerTurn: LiveData<String> = _playerTurn
@@ -22,9 +18,11 @@ class GameViewModel(private val game: Game): ViewModel() {
     }
 
     val tap: (Int, Int) -> Unit = { row, column ->
-        val player: Player = game.whoseTurn()
-        game.takeTurn(Position(row, column))
-        haveWinnerOrWhoseTurn(player)
+        try {
+            val player: Player = game.whoseTurn()
+            game.takeTurn(Position(row, column))
+            haveWinnerOrWhoseTurn(player)
+        } catch(e: Exception) {}
     }
 
     private fun haveWinnerOrWhoseTurn(player: Player) {
