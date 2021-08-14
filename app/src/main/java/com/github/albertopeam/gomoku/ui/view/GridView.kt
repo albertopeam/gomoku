@@ -15,8 +15,6 @@ import com.github.albertopeam.gomoku.domain.Position
 import kotlin.math.min
 import kotlin.math.roundToInt
 
-//TODO: rotating breaks the layout
-//TODO: fix board lines start and end(small breaks)
 //TODO: GameImpl -> Gomoku rules? interface
 //TODO: GomokuRules. need algorithm improvements, three double for loops, first one can be introduced in third one first level.
 class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
@@ -96,7 +94,7 @@ class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
             val width = measuredWidth
             val height = measuredHeight
             val distance = cellSize()
-            (1..cells + 1).forEach {
+            (1..cells).forEach {
                 val position = (it * distance) + (it * lineWidth)
                 drawLine(distance + 1, position, width.toFloat() - distance, position, linePaint) //draw horizontal
                 drawLine(position, distance + 1, position, height.toFloat() - distance, linePaint) //draw vertical
