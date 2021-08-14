@@ -98,14 +98,8 @@ class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
             val distance = cellSize()
             (1..cells + 1).forEach {
                 val position = (it * distance) + (it * lineWidth)
-                drawLine(distance, position, width.toFloat() - distance, position, linePaint)
-                drawLine(
-                    position,
-                    distance,
-                    position,
-                    height.toFloat() - distance + lineWidth,
-                    linePaint
-                )
+                drawLine(distance + 1, position, width.toFloat() - distance, position, linePaint) //draw horizontal
+                drawLine(position, distance + 1, position, height.toFloat() - distance, linePaint) //draw vertical
             }
         }
     }
@@ -140,6 +134,7 @@ class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private fun cellSize(): Float {
         val totalLinesWidth = lineWidth * cells
-        return (height - totalLinesWidth) / (cells + 1)
+        val internalSize = height - totalLinesWidth
+        return internalSize / (cells + 1)
     }
 }
