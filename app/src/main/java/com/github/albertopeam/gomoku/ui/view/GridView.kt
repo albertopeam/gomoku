@@ -16,7 +16,6 @@ import kotlin.math.min
 import kotlin.math.roundToInt
 
 //TODO: rotating breaks the layout
-//TODO: taps on the middle of the layout are not precise enough
 //TODO: fix board lines start and end(small breaks)
 //TODO: GameImpl -> Gomoku rules? interface
 //TODO: GomokuRules. need algorithm improvements, three double for loops, first one can be introduced in third one first level.
@@ -78,26 +77,17 @@ class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        board?.let { board ->
-            drawGrid(canvas)
-            (0 until cells).forEach { col ->
-                (0 until cells).forEach { row ->
-                    val player = board.get(Position(row, col))
-                    if (player == Player.WHITE) {
-                        drawPiece(canvas, col, row, whitePiecePaint)
-                    } else if (player == Player.BLACK) {
-                        drawPiece(canvas, col, row, blackPiecePaint)
-                    }
-                }
-            }
-        }
+        drawGrid(canvas)
+        drawPieces(canvas, board)
     }
 
     internal fun position(event: MotionEvent): Pair<Int, Int> {
         val posX = event.x
         val posY = event.y
-        val row = (posY / cellSize()).roundToInt() - 1
-        val column = (posX / cellSize()).roundToInt() - 1
+        val cellSide = height / (cells + 1)
+        val row = (posY / cellSide).roundToInt() - 1
+        val column = (posX / cellSide).roundToInt() - 1
+
         return Pair(row, column)
     }
 
@@ -116,6 +106,21 @@ class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
                     height.toFloat() - distance + lineWidth,
                     linePaint
                 )
+            }
+        }
+    }
+
+    private fun drawPieces(canvas: Canvas?, boardState: BoardState?) {
+        boardState?.let { board ->
+            (0 until cells).forEach { col ->
+                (0 until cells).forEach { row ->
+                    val player = board.get(Position(row, col))
+                    if (player == Player.WHITE) {
+                        drawPiece(canvas, col, row, whitePiecePaint)
+                    } else if (player == Player.BLACK) {
+                        drawPiece(canvas, col, row, blackPiecePaint)
+                    }
+                }
             }
         }
     }
