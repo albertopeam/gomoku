@@ -15,8 +15,11 @@ import com.github.albertopeam.gomoku.domain.Position
 import kotlin.math.min
 import kotlin.math.roundToInt
 
-//TODO: GameImpl -> Gomoku rules? interface
+//TODO: stones places is used outside of the tests?
+//TODO: game shold be typed to avoid having concrete player, happens the same to Board and BoardState
+//TODO: GameImpl -> Gomoku rules? interface? internal, game should be named gomokuGame, and we should be used generics in Player.
 //TODO: GomokuRules. need algorithm improvements, three double for loops, first one can be introduced in third one first level.
+//TODO: espresso tests
 class GridView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private var lineColor: Int = Color.BLACK

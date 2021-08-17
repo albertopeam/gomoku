@@ -2,6 +2,7 @@ package com.github.albertopeam.gomoku.ui.game
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.github.albertopeam.gomoku.await
+import com.github.albertopeam.gomoku.data.GomokuBoardFactory
 import com.github.albertopeam.gomoku.domain.*
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
@@ -18,7 +19,8 @@ class GameViewModelTest {
 
     @Before
     fun setUp() {
-        game = GomokuGameFactory.make()
+        val board = GomokuBoardFactory.make()
+        game = GomokuGameFactory.make(board = board.first, boardState = board.second)
         sut = GameViewModel(game)
     }
 

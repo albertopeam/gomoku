@@ -1,4 +1,6 @@
-package com.github.albertopeam.gomoku.domain
+package com.github.albertopeam.gomoku.data
+
+import com.github.albertopeam.gomoku.domain.*
 
 internal class BoardData: Board, BoardState {
     override val columns = 19

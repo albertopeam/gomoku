@@ -15,9 +15,4 @@ interface Board {
      * @throws SpaceOccupiedException if the position is already taken by a player
      */
     fun place(position: Position, player: Player)
-    /**
-     * gets the player for a position, if not occupied then it will return empty
-     * @throws OutOfBoardException if the position is not inside the board
-     */
-    fun get(position: Position): Player
 }

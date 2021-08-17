@@ -1,9 +1,13 @@
-package com.github.albertopeam.gomoku.domain
+package com.github.albertopeam.gomoku.data
 
+import com.github.albertopeam.gomoku.domain.OutOfBoardException
+import com.github.albertopeam.gomoku.domain.Player
+import com.github.albertopeam.gomoku.domain.Position
+import com.github.albertopeam.gomoku.domain.SpaceOccupiedException
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
-import org.junit.Test
 import org.junit.Before
+import org.junit.Test
 
 class BoardDataTest {
 

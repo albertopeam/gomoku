@@ -49,6 +49,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
     implementation project(path: ':domain')
+    implementation project(path: ':data')
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'android.arch.core:core-testing:1.1.1'
     testImplementation 'org.hamcrest:hamcrest:2.2'

@@ -7,15 +7,16 @@ import org.junit.Test
 
 class GameImplTest {
 
-    private lateinit var board: BoardData
+    private lateinit var board: MockBoard
     private lateinit var rules: GomokuRules
     private lateinit var sut: GameImpl
 
     @Before
     fun setUp() {
-        board = BoardData()
+        board = MockBoard()
+        val boardState: BoardState = board
         rules = GomokuRules()
-        sut = GameImpl(board, rules)
+        sut = GameImpl(board, boardState, rules)
     }
 
     // takeTurn & whoseTurn
