@@ -2,6 +2,7 @@ package com.github.albertopeam.gomoku.ui.view
 
 import android.view.MotionEvent
 import androidx.databinding.BindingAdapter
+import com.github.albertopeam.gomoku.domain.BoardState
 
 @BindingAdapter("onTapListener")
 fun GridView.onTapListener(lambda: ((row: Int, column: Int) -> Unit)?) {
@@ -14,4 +15,9 @@ fun GridView.onTapListener(lambda: ((row: Int, column: Int) -> Unit)?) {
         }
         true
     }
+}
+
+@BindingAdapter("boardState")
+fun GridView.setBoardState(boardState: BoardState) {
+    this.board = boardState
 }

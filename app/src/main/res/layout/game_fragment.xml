@@ -39,7 +39,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:line_color="@color/grid"
-            app:line_width="2" />
+            app:line_width="2"
+            app:boardState="@{viewModel.board}"/>
 
         <TextView
             android:layout_width="match_parent"

@@ -29,6 +29,5 @@ class GameFragment : Fragment() {
         val viewModel = ViewModelProvider(this, GameViewModelFactory()).get(GameViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        binding.gridView.board = viewModel.board
     }
 }
