@@ -17,6 +17,7 @@
         tools:context=".ui.game.GameFragment">
 
         <TextView
+            android:id="@+id/playerTurn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -43,6 +44,7 @@
             app:boardState="@{viewModel.board}"/>
 
         <TextView
+            android:id="@+id/winStatus"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
