@@ -20,7 +20,7 @@ class GameViewModelTest {
     @Before
     fun setUp() {
         val board = GomokuBoardFactory.make()
-        game = GomokuGameFactory.make(board = board.first, boardState = board.second)
+        game = GomokuGameFactory.make(board = board, boardState = board)
         sut = GameViewModel(game)
     }
 

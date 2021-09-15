@@ -8,7 +8,7 @@ import com.github.albertopeam.gomoku.domain.GomokuGameFactory
 class GameViewModelFactory: ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         val board = GomokuBoardFactory.make()
-        val game = GomokuGameFactory.make(board.first, board.second)
+        val game = GomokuGameFactory.make(board, board)
         return GameViewModel(game) as T
     }
 }

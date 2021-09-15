@@ -2,7 +2,7 @@ package com.github.albertopeam.gomoku.data
 
 import com.github.albertopeam.gomoku.domain.*
 
-internal class BoardData: Board, BoardState {
+internal class BoardData: GomokuBoard() {
     override val columns = 19
     override val rows = 19
     val lastColumn: Int = columns - 1
